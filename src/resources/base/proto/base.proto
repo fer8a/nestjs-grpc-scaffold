@@ -1,0 +1,23 @@
+// Protocol buffer version
+syntax = "proto3";
+
+// Package name
+package base;
+
+// Service definition (API)
+service BaseService {
+  // RPC Methods
+  rpc FindOne (BaseById) returns (Base);
+  rpc FindMany (stream BaseById) returns (stream Base);
+}
+
+// Request object definition
+message BaseById {
+  int32 id = 1;
+}
+
+// Response object definition
+message Base {
+  int32 id = 1;
+  string name = 2;
+}

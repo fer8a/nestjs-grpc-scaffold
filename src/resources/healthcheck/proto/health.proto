@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package health;
+
+service HealthService {
+  rpc Health(HealthCheckRequest) returns (HealthCheckResponse);
+}
+
+message HealthCheckRequest {
+  string service = 1;
+}
+
+message HealthCheckResponse {
+  HealthCheckStatus status = 1;
+  Info info = 2;
+  Error error = 3;
+  Details details = 4;
+
+  enum HealthCheckStatus {
+    error = 0;
+    ok = 1;
+    shutting_down = 2;
+  }
+
+  enum HealthIndicatorStatus {
+    up = 0;
+    down = 1;
+  }
+
+  message Memory_heap {
+    HealthIndicatorStatus status = 1;
+    string message = 2;
+  }
+
+  message Info {
+    Memory_heap memory_heap = 1;
+  }
+
+  message Mongoose {
+    HealthIndicatorStatus status = 1;
+    string message = 2;
+  }
+
+  message Error {
+    Memory_heap memory_heap = 1;
+    Mongoose mongoose = 2;
+  }
+
+  message Memory_heap1 {
+    HealthIndicatorStatus status = 1;
+    string message = 2;
+  }
+
+  message Mongoose1 {
+    HealthIndicatorStatus status = 1;
+    string message = 2;
+  }
+
+  message Details {
+    Memory_heap1 memory_heap = 1;
+    Mongoose1 mongoose = 2;
+  }
+}
